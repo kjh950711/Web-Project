@@ -1,5 +1,5 @@
 # Web-Project
- ### ▶ dark_horse, dark_horse__spring
+ ## dark_horse, dark_horse__spring
  2019.10.01 ~ 2019.10.14     
  한국소프트웨어산업협회(KOSA) 빅데이터 개발자 양성과정 팀 프로젝트          
  1. 프로젝트명   : 경마 승률 예측 웹 개발       
