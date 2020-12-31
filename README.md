@@ -3,7 +3,7 @@
  1. 프로젝트명   : 경마 승률 예측 웹 개발       
  2. 인      원  : 총 5명        
  3. 사용기술          
- - Language : Java, jQuery, CSS, JSP, SQL
+ - Language : Java, JavaScript, CSS
  - DB : Oracle11g
  - Framework : Servlet, Spring (2가지 버전으로 제작)          
  4. 프로젝트 소개          
@@ -19,7 +19,7 @@
  1. 프로젝트명   : 전사결과 통계 웹 페이지 제작       
  2. 인      원  : 총 1명        
  3. 사용기술          
- - Language : Java, JavaScript, CSS, JSP
+ - Language : Java, JavaScript, CSS
  - Framework : Spring 4.0          
  4. 프로젝트 소개          
  - xml형태의 전사 데이터를 다양한 방식으로 분석/처리하여 통계 결과를 나타내는 웹 사이트를 제작
