@@ -3,7 +3,7 @@
  1. 프로젝트명   : 경마 승률 예측 웹 개발       
  2. 인      원  : 총 5명        
  3. 사용기술          
- - 언어: Java, jQuery, CSS, JSP, SQL
+ - Language : Java, jQuery, CSS, JSP, SQL
  - DB : Oracle11g
  - Framework : Servlet, Spring (2가지 버전으로 제작)          
  4. 프로젝트 소개          
@@ -14,3 +14,20 @@
  - 웹 크롤링
  - 경주마 프로필 페이지 설계 및 구현
  
+# project_intern
+> 솔트룩스 인턴 개인 과제 (2020.04.13 ~ 2020.04.24)          
+ 1. 프로젝트명   : 전사결과 통계 웹 페이지 제작       
+ 2. 인      원  : 총 1명        
+ 3. 사용기술          
+ - Language : Java, JavaScript, CSS, JSP
+ - Framework : Spring 4.0          
+ 4. 프로젝트 소개          
+ - xml형태의 전사 데이터를 다양한 방식으로 분석/처리하여 통계 결과를 나타내는 웹 사이트를 제작
+ - xml parser에 텍스트 데이터 분석기술을 접목시켜 웹서비스를 구현하는 작업을 수행
+ - 추가적으로 xml파일의 유효성검사를 수행하는 기능 구현      
+ 5. 담당 업무          
+ - Spring Framwork이용 웹 구축
+ - 웹 디자인
+ - xml Parser 구축
+ - 텍스트 데이터 처리, 분석, 통계
+ - xml파일 유효성 검사기 구축
