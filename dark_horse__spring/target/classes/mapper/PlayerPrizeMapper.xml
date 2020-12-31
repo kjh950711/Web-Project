@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kosa.mapper.PlayerPrizeMapper">
+
+	<resultMap id="usersResultMap" type="com.kosa.vo.PlayerPrizeVO">
+		<result property="pName" column="p_name"/>
+		<result property="pPrize" column="p_prize"/>
+		<result property="gameDate" column="game_date"/>
+		<result property="hName" column="h_name"/>
+				
+	</resultMap>
+	
+	<insert id="pyPrizeInsertSQL" parameterType="com.kosa.vo.PlayerPrizeVO">
+		insert into player_prize(p_name, p_prize, game_date, h_name) 
+		values(#{pName},#{pPrize},#{gameDate},#{hName})
+	</insert>
+
+	<select id="pyPrizeSelectSQL" parameterType="String" resultMap="usersResultMap">
+		select * from player_prize where p_name = #{pName}
+	</select>
+
+</mapper>	

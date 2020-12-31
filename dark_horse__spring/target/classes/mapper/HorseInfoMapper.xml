@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kosa.mapper.HorseInfoMapper"> <!-- interface와 mapper가 매핑됨 -->
+
+	<resultMap id="HorseInfoResultMap" type="com.kosa.vo.HorseInfoVO">
+		<result property="rownum" column="rownum"/><!-- key에 해당하는 것은 id , column(db의 컬럼명), property(VO의 프라퍼티 이름) -->
+		<result property="hName" column="h_name"/>
+		<result property="hno" column="hno"/>
+		<result property="hSex" column="h_sex"/>
+		<result property="hBirthday" column="h_birthday"/>
+		<result property="hClass" column="h_class"/>
+		<result property="trName" column="tr_name"/>
+		<result property="owName" column="ow_name"/>
+		<result property="hRating" column="h_rating"/>
+		<result property="gamePlace" column="game_place"/>
+		<result property="hPhoto" column="h_photo"/>
+		<result property="hPrize" column="h_prize"/>
+		<result property="hWinRate" column="h_win_rate"/>
+		<result property="hTrainingCnt" column="h_training_cnt"/>
+	</resultMap>
+	
+	<select id="hNameSelectSQL" resultType="String">
+		select h_name from horse_info
+	</select>
+	
+	<insert id="horseInfoInsertSQL" parameterType="com.kosa.vo.HorseInfoVO">
+		insert into horse_info values
+		(#{hName}, #{hno}, #{hSex}, #{hBirthday}, #{hClass}, #{trName},
+		 #{owName}, #{hRating}, #{gamePlace}, #{hPhoto}, #{hPrize}, #{hWinRate}, #{hTrainingCnt})
+	</insert>
+	
+	<insert id="horseInfoUpdateSQL" parameterType="com.kosa.vo.HorseInfoVO">
+		update horse_info set game_place=? where hno=#{hno}
+	</insert>
+	
+	<select id="HorseInfoSelectSQL" parameterType="String" resultMap="HorseInfoResultMap">
+		select * from horse_info where h_name like '%'|| #{hName} || '%'
+	</select>
+	
+	<select id="horseSelectSQL" resultMap="HorseInfoResultMap">
+		<![CDATA[
+		select rownum, s.* 
+		from (select horse_info.*, rownum from horse_info order by h_win_rate desc) s 
+		where rownum<=50
+		]]>
+	</select>
+	
+</mapper>

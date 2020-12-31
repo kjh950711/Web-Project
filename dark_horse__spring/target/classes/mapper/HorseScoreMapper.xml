@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kosa.mapper.HorseScoreMapper"> <!-- interface와 mapper가 매핑됨 -->
+
+	<resultMap id="HorseScoreResultMap" type="com.kosa.vo.HorseScoreVO">
+		<result property="hName" column="h_name"/><!-- key에 해당하는 것은 id , column(db의 컬럼명), property(VO의 프라퍼티 이름) -->
+		<result property="hno" column="hno"/>
+		<result property="gameDate" column="game_date"/>
+		<result property="hRank" column="h_rank"/>
+		<result property="gameDistance" column="game_distance"/>
+		<result property="pName" column="p_name"/>
+		<result property="hRecord" column="h_record"/>
+		<result property="gameMonth" column="game_month"/>
+		<result property="gamePlace" column="game_place"/>
+		<result property="gameCnt" column="gamecnt"/>
+		<result property="avgRankAll" column="avgrankall"/>
+	</resultMap>
+	
+	<resultMap id="HorseChartResultMap" type="com.kosa.vo.HorseChartVO">
+		<result property="gameMonth" column="game_month"/>
+		<result property="avgRankMon" column="avgrankmon"/>
+	</resultMap>
+
+	<select id="HorseScoreSelectSQL" parameterType="String" resultMap="HorseScoreResultMap">
+		select * from horse_score where hno =#{hno}
+	</select>
+	
+	<select id="HorseScoreSelect_rankSQL" parameterType="String" resultMap="HorseScoreResultMap">
+		select count(h_rank) as gamecnt, round(avg(h_rank), 2) as avgrankall 
+		from horse_score 
+		group by hno 
+		having hno=#{hno}
+	</select>
+	
+	<select id="HorseScoreSelect_monrankSQL" parameterType="String" resultMap="HorseChartResultMap">
+		select game_month, round(avg(h_rank), 2) as avgrankmon
+		from horse_score where hno=#{hno}
+		group by game_month 
+		order by game_month
+	</select>
+	
+	<insert id="HorseScoreInsertSQL" parameterType="com.kosa.vo.HorseInfoVO">
+		insert into horse_score values
+		(#{h_name}, #{hno}, #{game_date}, #{h_rank}, 
+		#{game_distance}, #{p_name}, #{h_record}, #{game_month}, #{game_place})
+	</insert>
+	
+	<select id="chartavgrankSQL" parameterType="String" resultType="Double">
+		select avg(h_rank), h_name from horse_score where h_name like '%'|| #{hName} || '%' group by h_name
+	</select>
+	
+</mapper>

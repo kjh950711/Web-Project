@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kosa.mapper.PlayerMapper">
+
+	<resultMap id="pyResultMap" type="com.kosa.vo.PlayerVO">
+		<id property="pName" column="p_name"/><!-- key에 해당하는 것은 id , column(db의 컬럼명), property(VO의 프라퍼티 이름) -->
+		<result property="rownum" column="rownum"/>
+		<result property="pAgency" column="p_agency"/>
+		<result property="pBirthday" column="p_birthday"/>
+		<result property="pDebut" column="p_debut"/>
+		<result property="pWeight" column="p_weight"/>
+		<result property="pWinRateAll" column="p_win_rate_all"/>
+		<result property="pWinRateYear" column="p_win_rate_year"/>
+		<result property="pCloth" column="p_cloth"/>
+		<result property="pPhoto" column="p_photo"/>
+		<result property="pWinCntAll" column="p_win_cnt_all"/>
+		<result property="pWinCntYear" column="p_win_cnt_year"/>
+		<result property="pGameCnt" column="p_game_cnt"/>
+		<result property="gamePlace" column="game_place"/>
+		
+		<!-- 
+		<collection property="empList" javaType="ArrayList" resultMap="empResultMap" /> 
+ 		-->	
+	</resultMap>
+	
+	<select id="pySelectSQL" resultType="String">
+		select p_name from player_info
+	</select>
+	
+	<select id="pyOrderSelectSQL" resultMap="pyResultMap">
+		<![CDATA[
+		select rownum, s.* 
+		from (select player_info.*, rownum 
+			  from player_info 
+			  order by p_win_rate_all desc) s 
+		where rownum<=50
+		]]>
+	</select>
+	
+	<select id="pyNameSQL" parameterType="String" resultMap="pyResultMap">
+		select * from player_info where p_name = #{pName}
+	</select>
+	
+	<insert id="pyInsertSQL" parameterType="com.kosa.vo.PlayerVO">
+		insert into player_info (p_name, p_agency, p_birthday, p_debut, p_weight, p_win_rate_all,
+								p_win_rate_year, p_cloth,p_photo, p_win_cnt_all, p_win_cnt_year, p_game_cnt, game_place) 
+		values (#{pName}, #{pAgency},#{pBirthday}, #{pDebut},#{pWeight}, 
+				#{pWinRateAll},#{pWinRateYear}, #{pCloth},#{pPhoto}, #{pWinCntAll},#{pWinCntYear}, #{pGameCnt},#{gamePlace})
+	</insert>
+
+</mapper>	
+
+

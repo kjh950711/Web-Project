@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="commNAME" class="xml.emp.CommonLogAspect" />
+	<aop:config>
+		<!-- what -->
+		<aop:aspect ref="commNAME">
+			<!-- where -->
+			<aop:pointcut id="mycut" expression="execution(public * xml.emp..*DAO.*(..))" />
+			<aop:pointcut id="detailcut" expression="execution(public * xml.emp..*DAO.*(*))" />
+			<!-- when -->
+			<aop:before pointcut-ref="mycut" method="logWrite"/>
+			<aop:after pointcut-ref="detailcut" method="auth"/>
+		</aop:aspect>
+	</aop:config>
+
+	<bean id="mydbcp" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
+	    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+	    <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
+	    <property name="username" value="kosa" />
+	    <property name="password"  value="0000" /> 
+	</bean>
+	
+	<bean name="/contList" class="com.kosa.test.EmpControllerXML" >
+		<property name="empSvcMethod" ref="empServiceNAME" />
+	</bean>
+	<bean name="/contDetail" class="com.kosa.test.EmpControllerXML" >
+		<property name="empSvcMethod" ref="empServiceNAME" />
+	</bean>
+	
+	<bean id="empServiceNAME" class="xml.emp.EmpServiceImpl" >
+		<constructor-arg ref="empDAONAME" />
+	</bean>
+	
+	<bean id="empDAONAME" class="xml.emp.EmpDAO" scope="singleton">
+		<property name="empVOMethod" ref="empVONAME" />
+	</bean>
+	
+	<bean id="empVONAME" class="xml.emp.EmpVO" scope="prototype"/>
+	
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+</beans>

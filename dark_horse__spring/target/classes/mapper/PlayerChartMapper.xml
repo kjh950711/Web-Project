@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kosa.mapper.PlayerChartMapper">
+
+	<resultMap id="usersResultMap" type="com.kosa.vo.PlayerChartVO">
+		<result property="pName" column="p_name"/>
+		<result property="firstCount" column="first_count"/>
+		<result property="secondCount" column="second_count"/>
+		<result property="gameMonth" column="game_month"/>
+	
+		<!-- 
+		<collection property="empList" javaType="ArrayList" resultMap="empResultMap" /> 
+ 		-->	
+	</resultMap>
+	
+	<select id="monthSelectSQL" parameterType="String" resultType="String">
+		select game_month from player_score 
+		where p_name=#{pName} order by game_month
+	</select>
+
+	<select id="firstSelectSQL" parameterType="String"  resultType="Integer">
+		select first_count from player_score 
+		where p_name=#{pName} order by game_month
+	</select>
+	
+	<select id="secondSelectSQL" parameterType="String"  resultType="Integer">
+		select second_count from player_score
+		where p_name=#{pName} order by game_month
+	</select>
+	
+</mapper>	
